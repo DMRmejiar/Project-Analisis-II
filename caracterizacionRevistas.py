@@ -1,5 +1,6 @@
 #!/usr/bin/python
-from models import *
+import models
+#from models import *
 import json
 
 class Controller:
@@ -12,7 +13,14 @@ class Controller:
     def search_name(self, value):
         for article in self.articles:
             if value in article.get('Source Title'):
-
+                article_object = models.Article(article.get('Lens ID'),
+                                                article.get('Title'),
+                                                article.get('Source Title'),
+                                                article.get('Date Published'),
+                                                article.get('Author'),
+                                                article.get('Publisher'))
+                magazine_object = models.Magazine(article.get('Source Title'),article.get('ISSNs'), article_object)
+                self.list_magazine.append(magazine_object)
         pass
 
     def add_magazine(self, title, issn, articles):
