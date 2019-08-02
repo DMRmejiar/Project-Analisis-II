@@ -9,8 +9,14 @@ class Controller:
             self.articles = json.loads(dataUdeA.read())
         self.list_magazine = []
 
-    def search_name(self):
-        # Se busca por nombre y se llena una lista de revistas con las caracteristicas
+    def search_name(self, value):
+        for article in self.articles:
+            if value in article.get('Source Title'):
+
+        pass
+
+    def add_magazine(self, title, issn, articles):
+
         pass
 
     def search_issn(self):
