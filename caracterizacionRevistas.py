@@ -23,7 +23,8 @@ class Controller:
                 self.list_magazine.append(magazine_object)
         pass
 
-    def add_magazine(self, title, issn, articles):
+    def add_magazine(self, magazine, article):
+
 
         pass
 
