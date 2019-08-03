@@ -1,7 +1,8 @@
 #!/usr/bin/python
 import models
-#from models import *
+# from models import *
 import json
+
 
 class Controller:
 
@@ -10,22 +11,29 @@ class Controller:
             self.articles = json.loads(dataUdeA.read())
         self.list_magazine = []
 
+    def getMagazines(self):
+        return self.list_magazine
+
+    def create_article(self, article):
+        article_object = models.Article(article.get('Lens ID'),
+                                        article.get('Title'),
+                                        article.get('Source Title'),
+                                        article.get('Date Published'),
+                                        article.get('Author'),
+                                        article.get('Publisher'))
+        return article_object
+
+    def add_magazine(self, article):
+        article_object = self.create_article(article)
+        list_articles = [article_object]
+        magazine_object = models.Magazine(article.get('Source Title'), article.get('ISSNs'), list_articles)
+        self.list_magazine.append(magazine_object)
+        pass
+
     def search_name(self, value):
         for article in self.articles:
             if value in article.get('Source Title'):
-                article_object = models.Article(article.get('Lens ID'),
-                                                article.get('Title'),
-                                                article.get('Source Title'),
-                                                article.get('Date Published'),
-                                                article.get('Author'),
-                                                article.get('Publisher'))
-                # article_object debe de ser un append para ir agregando a una lista
-                magazine_object = models.Magazine(article.get('Source Title'), article.get('ISSNs'), article_object)
-                self.list_magazine.append(magazine_object)
-        # Falta filtrar si ya la revista esta en la lista para no agregarla nuevamente
-
-    def add_magazine(self, magazine, article):
-        pass
+                self.add_magazine(article)
 
     def search_issn(self):
         # Se busca por issn y se llena una lista de revistas con las caracteristicas
