@@ -1,8 +1,26 @@
 #!/usr/bin/python
+import caracterizacionRevistas
+import pyth
 from caracterizacionRevistas import *
 
-def main():
-    print("Holi, aqui va el codigo del main")
+class Main:
 
-if __name__ == "__main__":
-    main()
+    print("Bienvenido, ¿Qué desea realizar?")
+    print("Opciones\n1.- Buscar revistas por nombre \n2.- Buscar resvistas por ISSN")
+    seleccion = input()
+
+    while True:
+        if seleccion == '1':
+            print("Ingrese el nombre de la revista:")
+            nombre = input()
+            pyth.searchName(nombre)
+            break
+        elif seleccion == '2':
+            print("Ingrese el ISSN de la revista:")
+            ISSN = input()
+            pyth.searchISSN(ISSN)
+            break
+        else:
+            print("Opción invalida, intentelo nuevamente")
+            seleccion = input()
+            True
