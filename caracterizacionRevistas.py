@@ -19,13 +19,12 @@ class Controller:
                                                 article.get('Date Published'),
                                                 article.get('Author'),
                                                 article.get('Publisher'))
-                magazine_object = models.Magazine(article.get('Source Title'),article.get('ISSNs'), article_object)
+                # article_object debe de ser un append para ir agregando a una lista
+                magazine_object = models.Magazine(article.get('Source Title'), article.get('ISSNs'), article_object)
                 self.list_magazine.append(magazine_object)
-        pass
+        # Falta filtrar si ya la revista esta en la lista para no agregarla nuevamente
 
     def add_magazine(self, magazine, article):
-
-
         pass
 
     def search_issn(self):
