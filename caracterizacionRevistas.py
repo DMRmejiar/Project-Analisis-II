@@ -4,6 +4,16 @@ import models
 import json
 
 
+def create_article(article):
+    article_object = models.Article(article.get('Lens ID'),
+                                    article.get('Title'),
+                                    article.get('Source Title'),
+                                    article.get('Date Published'),
+                                    article.get('Author'),
+                                    article.get('Publisher'))
+    return article_object
+
+
 class Controller:
 
     def __init__(self):
@@ -14,25 +24,20 @@ class Controller:
     def getMagazines(self):
         return self.list_magazine
 
-    def create_article(self, article):
-        article_object = models.Article(article.get('Lens ID'),
-                                        article.get('Title'),
-                                        article.get('Source Title'),
-                                        article.get('Date Published'),
-                                        article.get('Author'),
-                                        article.get('Publisher'))
-        return article_object
-
     def add_magazine(self, article):
-        article_object = self.create_article(article)
+        article_object = create_article(article)
         list_articles = [article_object]
         magazine_object = models.Magazine(article.get('Source Title'), article.get('ISSNs'), list_articles)
-        self.list_magazine.append(magazine_object)
-        pass
+        if self.list_magazine.count(magazine_object) > 0:
+            position = self.list_magazine.index(magazine_object)
+            self.list_magazine[position].articles.append(article_object)
+        else:
+            self.list_magazine.append(magazine_object)
 
     def search_name(self, value):
+        value = value.lower()
         for article in self.articles:
-            if value in article.get('Source Title'):
+            if value in str(article.get('Source Title')).lower():
                 self.add_magazine(article)
 
     def search_issn(self):
