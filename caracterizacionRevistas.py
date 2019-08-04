@@ -35,9 +35,11 @@ class Controller:
             self.list_magazine.append(magazine_object)
 
     def search_name(self, value):
+        i=0
         value = value.lower()
         for article in self.articles:
             if value in str(article.get('Source Title')).lower():
+                i = i + 1
                 self.add_magazine(article)
 
     def search_issn(self):

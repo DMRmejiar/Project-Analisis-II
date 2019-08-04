@@ -13,13 +13,21 @@ class Main:
         if seleccion == '1':
             print("Ingrese el nombre de la revista:")
             nombre = input()
-
             controlador.search_name(nombre)
+            i=0
             for revista in controlador.getMagazines():
-                print(revista.title)
-            # print(controlador.getMagazines())
-            # pyth.searchName(nombre)
-            break
+                i = i+1
+                print(i, revista.title)
+            if i == 0:
+                print('No se encontró ninguna revista con el nombre "', nombre, '" intete de nuevo')
+                True
+            else:
+                print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
+                      "numero que le corresponde")
+                buscar = input()
+                break
+
+
         elif seleccion == '2':
             print("Ingrese el ISSN de la revista:")
             ISSN = input()

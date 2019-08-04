@@ -31,7 +31,7 @@ def searchISSN(value):
         # for issn in article['ISSNs']:
         if article.get('ISSNs') == value:
             i = i + 1
-
+            # if issn == value:
             print(article.get('Source Title'))
     if i==0:
         print('No se encontró ninguna revista asociada al ISSN ', value)
