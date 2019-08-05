@@ -1,4 +1,4 @@
-#by: David Mejia, Juan Jose Zapata, Felipe Correa, Andres Quintero, Paola Posada
+#by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
 #!/usr/bin/python
 import models
 # from models import *
