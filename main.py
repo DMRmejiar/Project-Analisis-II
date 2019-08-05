@@ -1,3 +1,4 @@
+#by: David Mejia, Juan Jose Zapata, Felipe Correa, Andres Quintero, Paola Posada
 #!/usr/bin/python
 import pyth
 from caracterizacionRevistas import *
