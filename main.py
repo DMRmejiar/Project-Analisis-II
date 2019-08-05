@@ -10,7 +10,5 @@ class Main:
         seleccion=input()
         if seleccion == "1":
             controlador.byname()
-            controlador.exit()
         if seleccion == "2":
             controlador.byISSN()
-            controlador.exit()

@@ -77,18 +77,11 @@ class Controller:
                 print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
                       "numero que le corresponde o '*' para regresar")
                 buscar = input()
-                y = 0
-                try:
-                    for revista in self.getMagazines():
-                        y = y + 1
-                        if y == int(buscar):
-                            print('Abriendo:', '"', revista.title, '"')
-                            False
-                except:
-                    print("Error, solo se aceptan valores numericos")
-                    buscar == '*'
                 if buscar=='*':
                     break
+                self.printInfo(buscar)
+
+
             break
 
 
@@ -111,29 +104,34 @@ class Controller:
                 print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
                       "numero que le corresponde o '*' para regresar")
                 buscar = input()
-                y = 0
-                try:
-                    for revista in self.getMagazines():
-                        y = y + 1
-                        if y == int(buscar):
-                            print('Abriendo:', '"', revista.title, '"')
-                            False
-                except:
-                    print("Error, solo se aceptan valores numericos")
-                    buscar == '*'
                 if buscar == '*':
                     break
+
+                self.printInfo(buscar)
+
+
             break
+    def printInfo(self, index):
+        d=False
+        try:
+            i=0;
+            for magazine in self.getMagazines():
+                i+=1
+                if i == int(index):
+                    print('Nombre de la revista: '+magazine.title)
+                    print('ISSNs: '+magazine.ISSNs)
+                    print("Articulos: ")
+                    for article in magazine.articles:
+                        print("___---___---___---___---______---___---___---___---______---___---___---___")
+                        print(article.title)
+                    d=True
 
 
-    def exit(self):
-        print("Pulse E para salir, cualquier tecla para volver al menu")
-        salir = input()
-        if salir == 'E' or salir == 'e':
-            exit()
+        except:
+            print("error, solo se admiten numeros en el rango valido")
         else:
-            True
-
+            if not d:
+                print("subindice fuera de rango")
     def search(self):
         # Aqui se filtra el tipo de busqueda a realizar, se detecta si es por issn o por nombre de revista
         # Luego se llama a search_name o search_issn dependiendo del resultado
