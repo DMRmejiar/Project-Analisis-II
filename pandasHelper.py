@@ -45,6 +45,6 @@ class UFileInPandas():
                 temp_journal.setArticle(temp_article)
                 journal_list_to_return.append(temp_journal)
             index += 1
-            return journal_list_to_return
+        return journal_list_to_return
 
 
