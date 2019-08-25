@@ -1,9 +1,11 @@
 #by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
 #!/usr/bin/python
 import models
+from pandasHelper import UFileInPandas
 # from models import *
 import json
 import pandas as pd
+
 
 def create_article(article):
     article_object = models.Article(article.get('Lens ID'),
@@ -16,7 +18,10 @@ def create_article(article):
 class Controller:
 
     def __init__(self):
-        self.__articles_file = pandasManager('university_of_antioquia.json')
+        # Here the pandas helper
+        self.__pandasManager = UFileInPandas('university_of_antioquia.json')
+        self.__journals = self.__pandasManager.getJournalList()
+        # End of pandas helper
         with open("university_of_antioquia.json", encoding="utf-8") as dataUdeA:
             self.articles = json.loads(dataUdeA.read())
         self.__list_magazine = []
@@ -42,7 +47,7 @@ class Controller:
         return -1
 
     def search_name(self, value):
-        i=0
+        i = 0
         value = value.lower()
         for article in self.articles:
             if value in str(article.get('Source Title')).lower():
@@ -62,22 +67,22 @@ class Controller:
         while True:
             print("Ingrese el nombre de la revista o '*' para regresar:")
             nombre = input()
-            if nombre=='*':
+            if nombre == '*':
                 break
             self.__list_magazine.clear()
-            self.search_name(nombre)
-            i=0
+            self.search_name(nombre) #play metod search_name
+            i = 0
             for revista in self.getMagazines():
-                i = i+1
+                i = i + 1
                 print(i, revista.title)
             if i == 0:
-                print('No se encontró ninguna revista con el nombre "', nombre, '" intete de nuevo')
+                print('No se encontró ninguna revista con el nombre "', nombre,'" intete de nuevo')
                 True
             else:
                 print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
                       "numero que le corresponde o '*' para regresar")
                 buscar = input()
-                if buscar=='*':
+                if buscar == '*':
                     break
                 self.printInfo(buscar)
 
@@ -89,13 +94,13 @@ class Controller:
         while True:
             print("Ingrese el ISSN de la revista o '*' para regresar:")
             ISSN = input()
-            if ISSN=='*':
+            if ISSN == '*':
                 break
             self.__list_magazine.clear()
             self.search_issn(ISSN)
-            i=0
+            i = 0
             for revista in self.getMagazines():
-                i = i+1
+                i = i + 1
                 print(i, revista.title)
             if i == 0:
                 print('No se encontró ninguna revista con el Issn "', ISSN, '" intente de nuevo')
@@ -108,15 +113,14 @@ class Controller:
                     break
 
                 self.printInfo(buscar)
-
-
             break
+
     def printInfo(self, index):
-        d=False
+        d = False
         try:
-            i=0;
+            i = 0
             for magazine in self.getMagazines():
-                i+=1
+                i += 1
                 if i == int(index):
                     print('Nombre de la revista: '+magazine.title)
                     print('ISSNs: '+magazine.ISSNs)
@@ -124,7 +128,7 @@ class Controller:
                     for article in magazine.articles:
                         print("___---___---___---___---______---___---___---___---______---___---___---___")
                         print(article.title)
-                    d=True
+                    d = True
 
 
         except:
