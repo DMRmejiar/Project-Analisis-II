@@ -24,25 +24,25 @@ class Controller:
         # End of pandas helper
         with open("university_of_antioquia.json", encoding="utf-8") as dataUdeA:
             self.articles = json.loads(dataUdeA.read())
-        self.__list_magazine = []
+        self.__list_Journal = []
 
-    def getMagazines(self):
-        return self.__list_magazine
+    def getJournals(self):
+        return self.__list_Journal
 
-    def add_magazine(self, article):
+    def add_Journal(self, article):
         article_object = create_article(article)
         list_articles = [article_object]
-        magazine_object = models.Magazine(article.get('Source Title'), article.get('ISSNs'), list_articles)
-        position = self.count(magazine_object)
+        Journal_object = models.Journal(article.get('Source Title'), article.get('ISSNs'), list_articles)
+        position = self.count(Journal_object)
         if position != -1:
-            self.__list_magazine[position].articles.append(article_object)
+            self.__list_Journal[position].articles.append(article_object)
         else:
-            self.__list_magazine.append(magazine_object)
+            self.__list_Journal.append(Journal_object)
 
-    def count(self, magazine):
-        for magazines in self.__list_magazine:
-            if magazine.title in magazines.title:
-                return self.__list_magazine.index(magazines)
+    def count(self, Journal):
+        for Journals in self.__list_Journal:
+            if Journal.title in Journals.title:
+                return self.__list_Journal.index(Journals)
 
         return -1
 
@@ -52,7 +52,7 @@ class Controller:
         for article in self.articles:
             if value in str(article.get('Source Title')).lower():
                 i = i + 1
-                self.add_magazine(article)
+                self.add_Journal(article)
 
     def search_issn(self,issn):
 
@@ -61,7 +61,7 @@ class Controller:
             listissns = articleIssn.split("; ")
             for issns in listissns:
                 if issn in issns:
-                    self.add_magazine(article)
+                    self.add_Journal(article)
 
     def byname(self):
         while True:
@@ -69,10 +69,10 @@ class Controller:
             nombre = input()
             if nombre == '*':
                 break
-            self.__list_magazine.clear()
+            self.__list_Journal.clear()
             self.search_name(nombre) #play metod search_name
             i = 0
-            for revista in self.getMagazines():
+            for revista in self.getJournals():
                 i = i + 1
                 print(i, revista.title)
             if i == 0:
@@ -96,10 +96,10 @@ class Controller:
             ISSN = input()
             if ISSN == '*':
                 break
-            self.__list_magazine.clear()
+            self.__list_Journal.clear()
             self.search_issn(ISSN)
             i = 0
-            for revista in self.getMagazines():
+            for revista in self.getJournals():
                 i = i + 1
                 print(i, revista.title)
             if i == 0:
@@ -119,13 +119,13 @@ class Controller:
         d = False
         try:
             i = 0
-            for magazine in self.getMagazines():
+            for Journal in self.getJournals():
                 i += 1
                 if i == int(index):
-                    print('Nombre de la revista: '+magazine.title)
-                    print('ISSNs: '+magazine.ISSNs)
+                    print('Nombre de la revista: '+Journal.title)
+                    print('ISSNs: '+Journal.ISSNs)
                     print("Articulos: ")
-                    for article in magazine.articles:
+                    for article in Journal.articles:
                         print("___---___---___---___---______---___---___---___---______---___---___---___")
                         print(article.title)
                     d = True

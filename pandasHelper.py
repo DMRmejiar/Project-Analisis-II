@@ -1,13 +1,23 @@
 import pandas as pd
 import models
 
-
 class UFileInPandas():
+
     """docstring for UFileInPandas."""
 
     def __init__(self, source):
         self.__source = source
         self.__file_university = pd.read_json(source)
+
+    def createArticle(self, index):
+        article_text = self.__file_university.iloc[index]
+        temp_article = models.Article(
+            article_text['record_lens_id'],
+            article_text['title'],
+            article_text['journal']['title_full'],
+            # article_text['journal'],
+            article_text['authors'])
+        return temp_article
 
     def getJournalList(self):
         journal_list = self.__file_university['journal']
@@ -37,12 +47,4 @@ class UFileInPandas():
             index += 1
             return journal_list_to_return
 
-        def createArticle(self, index):
-            article_text = self.__file_university.iloc[index]
-            temp_article = models.Article(
-                    article_text['record_lens_id'],
-                    article_text['title'],
-                    article_text['journal']['title_full'],
-                    # article_text['journal'],
-                    article_text['authors'])
-            return temp_article
+

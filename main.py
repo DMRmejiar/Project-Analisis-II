@@ -1,7 +1,7 @@
 #by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
 #!/usr/bin/python
-import pyth
 from caracterizacionRevistas import *
+
 
 class Main:
     controlador = Controller()
