@@ -1,18 +1,18 @@
 #by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
 #!/usr/bin/python
 
-class Magazine:
-    def __init__(self, title, issns, articles):
-        self.title = title
-        self.ISSNs = issns
-        self.articles = articles
+class Journal:
+    def __init__(self, title, publisher, issns, country, articles):
+        self.__title = title
+        self.__publisher = publisher
+        self.__ISSNs = issns
+        self.__country = country
+        self.__articles = articles
 
 
 class Article:
-    def __init__(self, lens_id, title, source_title, date, authors, publisher):
-        self.lens_id = lens_id
-        self.title = title
-        self.source_title = source_title
-        self.date = date
-        self.authors = authors
-        self.publisher = publisher
+    def __init__(self, lens_id, title, journal, authors):
+        self.__lens_id = lens_id
+        self.__title = title
+        self.__journal = journal
+        self.__authors = authors

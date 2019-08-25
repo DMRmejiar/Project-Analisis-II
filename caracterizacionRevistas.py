@@ -3,42 +3,41 @@
 import models
 # from models import *
 import json
-
+import pandas as pd
 
 def create_article(article):
     article_object = models.Article(article.get('Lens ID'),
                                     article.get('Title'),
-                                    article.get('Source Title'),
-                                    article.get('Date Published'),
-                                    article.get('Author'),
-                                    article.get('Publisher'))
+                                    article.get('Journal'),
+                                    article.get('Authors'))
     return article_object
 
 
 class Controller:
 
     def __init__(self):
+        self.__articles_file = pandasManager('university_of_antioquia.json')
         with open("university_of_antioquia.json", encoding="utf-8") as dataUdeA:
             self.articles = json.loads(dataUdeA.read())
-        self.list_magazine = []
+        self.__list_magazine = []
 
     def getMagazines(self):
-        return self.list_magazine
+        return self.__list_magazine
 
     def add_magazine(self, article):
         article_object = create_article(article)
         list_articles = [article_object]
         magazine_object = models.Magazine(article.get('Source Title'), article.get('ISSNs'), list_articles)
-        position=self.count(magazine_object)
+        position = self.count(magazine_object)
         if position != -1:
-            self.list_magazine[position].articles.append(article_object)
+            self.__list_magazine[position].articles.append(article_object)
         else:
-            self.list_magazine.append(magazine_object)
+            self.__list_magazine.append(magazine_object)
 
     def count(self, magazine):
-        for magazines in self.list_magazine:
+        for magazines in self.__list_magazine:
             if magazine.title in magazines.title:
-                return self.list_magazine.index(magazines)
+                return self.__list_magazine.index(magazines)
 
         return -1
 
@@ -65,7 +64,7 @@ class Controller:
             nombre = input()
             if nombre=='*':
                 break
-            self.list_magazine.clear()
+            self.__list_magazine.clear()
             self.search_name(nombre)
             i=0
             for revista in self.getMagazines():
@@ -92,7 +91,7 @@ class Controller:
             ISSN = input()
             if ISSN=='*':
                 break
-            self.list_magazine.clear()
+            self.__list_magazine.clear()
             self.search_issn(ISSN)
             i=0
             for revista in self.getMagazines():
@@ -137,3 +136,10 @@ class Controller:
         # Aqui se filtra el tipo de busqueda a realizar, se detecta si es por issn o por nombre de revista
         # Luego se llama a search_name o search_issn dependiendo del resultado
         pass
+
+class pandasManager:
+    """docstring for pandasManager."""
+
+    def __init__(self, json_source):
+        self.__json_source = json_source
+        self.__file = pd.read_json(json_source)
