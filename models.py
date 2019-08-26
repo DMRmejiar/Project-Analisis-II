@@ -16,22 +16,22 @@ class Journal:
         self.__country = country
         self.__articles = []
 
-    def getTitle(self):
+    def get_title(self):
         return self.__title
 
-    def getPublisher(self):
+    def get_publisher(self):
         return self.__publisher
 
-    def getISSNs(self):
+    def get_issn_list(self):
         return self.__ISSNs
 
-    def getCountry(self):
+    def get_country(self):
         return self.__country
 
-    def getArticles(self):
+    def get_articles(self):
         return self.__articles
 
-    def setArticle(self, article):
+    def set_article(self, article):
         self.__articles.append(article)
 
 
@@ -42,14 +42,14 @@ class Article:
         self.__journal = journal
         self.__authors = authors
 
-    def getLensId(self):
+    def get_lens_id(self):
         return self.__lens_id
 
-    def getTitle(self):
+    def get_title(self):
         return self.__title
 
-    def getJournal(self):
+    def get_journal(self):
         return self.__journal
 
-    def getAuthors(self):
+    def get_authors(self):
         return self.__authors

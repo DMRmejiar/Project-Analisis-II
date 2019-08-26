@@ -1,91 +1,77 @@
-#by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
-#!/usr/bin/python
-from models import *
-from pandasHelper import UFileInPandas
-import json
-import pandas as pd
+# by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
+# !/usr/bin/python
+from pandasHelper import JournalPandasHelper
+
 
 class Controller:
 
     def __init__(self):
-        # Here the pandas helper
-        self.__pandasManager = UFileInPandas('university_of_antioquia.json')
-        self.__journals = self.__pandasManager.getJournalList()
-        self.__list_Journal = []
-        
+        self.__pandas_manager = JournalPandasHelper('university_of_antioquia.json')
+        self.__journals = self.__pandas_manager.get_journal_list()
+        self.__journal_list = []
 
-    def byName(self,name):
-        if name == '*':
+    def search(self, var, search_type):
+        var.strip()
+        if (var == '*') or (var == ''):
             return " "
-        self.__list_Journal.clear()
-        for revista in self.__journals:
-            if not str(revista.getTitle()).lower().find(str(name).lower()) == -1:
-                self.__list_Journal.append(revista)
-        i = 0
-        for revista in self.__list_Journal:
-            i = i + 1
-            print(i, revista.getTitle())
-        if i == 0:
-            ret = 'No se encontró ninguna revista con el nombre "'+ nombre + '" intente de nuevo'
-            True
+        self.update_journal_list(var, search_type)
+        return self.print_journal_list()
+
+    def update_journal_list(self, var, search_type):
+        self.__journal_list.clear()
+        if search_type == 'name':
+            for var_journal in self.__journals:
+                if not str(var_journal.get_title()).lower().find(str(var).lower()) == -1:
+                    self.__journal_list.append(var_journal)
+        elif search_type == 'issn':
+            for var_journal in self.__journals:
+                for var_issn in var_journal.get_issn_list():
+                    if var in var_issn['value']:
+                        self.__journal_list.append(var_journal)
+
+    def print_journal_list(self):
+        journal_counter = 0
+        str_to_return = ''
+        for var_journal in self.__journal_list:
+            journal_counter += 1
+            str_to_return += str(journal_counter) + ' ' + str(var_journal.get_title()) + '\n'
+        if journal_counter == 0:
+            str_to_return += 'No se encontró ninguna revista, intente de nuevo'
         else:
-            ret = "Para conocer la informacion de alguna de las revistas anteriores ingrese el numero que le corresponde o '*' para regresar"
-        return ret
-
-
-
-    def byISSN(self, temp_ISSN):
-        if temp_ISSN == '*':
-            return " "
-        self.updateJournalListISSN(temp_ISSN)
-        i = 0
-        for revista in self.__list_Journal:
-            i = i + 1
-            print(i, revista.getTitle())
-        if i == 0:
-            ret = 'No se encontró ninguna revista con el Issn "'+ temp_ISSN + '" intente de nuevo'
-            True
-        else:
-            ret = "Para conocer la informacion de alguna de las revistas anteriores ingrese el numero que le corresponde o '*' para regresar"
-        return ret
+            str_to_return += "Para conocer la informacion de alguna de las revistas anteriores" + \
+                            " ingrese el numero que le corresponde o '*' para regresar"
+        return str_to_return
 
     def printInfo(self, index):
         d = False
 
         try:
             i = 0
-            for Journal in self.__list_Journal:
+            for journal in self.__journal_list:
                 i = i + 1
                 if i == int(index):
-                    print('Nombre de la revista: ' + Journal.getTitle())
-                    print('Editorial: ' + str(Journal.getPublisher()))
-                    if str(Journal.getCountry()) == "None":
+                    print('Nombre de la revista: ' + journal.get_title())
+                    print('Editorial: ' + str(journal.get_publisher()))
+                    if str(journal.get_country()) == "None":
                         print('País: Desconocido')
                     else:
-                        print('País: ' + str(Journal.getCountry()))
-                    if len(Journal.getISSNs()) > 0:
-                        print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
-                        for issn in Journal.getISSNs():
+                        print('País: ' + str(journal.get_country()))
+                    if len(journal.get_issn_list()) > 0:
+                        print("Para la revista " + journal.get_title() + " estos son los ISSNs: ")
+                        for issn in journal.get_issn_list():
                             print("  " + issn['value'] + " - " + issn['type'])
                     print("Articulos: ")
-                    for article in Journal.getArticles():
+                    for article in journal.get_articles():
                         print()
                         print("______________________________________________________________________________________")
                         print()
-                        print(article.getTitle())
+                        print(article.get_title())
                         print()
                         print("______________________________________________________________________________________")
                         print()
                     d = True
-        except:
+        except Exception as e:
             print("error, solo se admiten numeros en el rango valido")
         else:
             if not d:
                 print("subindice fuera de rango")
-
-    def updateJournalListISSN(self, issn):
-        self.__list_Journal = []
-        for journal in self.__journals:
-            for temp_issn in journal.getISSNs():
-                if issn in temp_issn['value']:
-                    self.__list_Journal.append(journal)
