@@ -22,8 +22,8 @@ class Controller:
         self.__pandasManager = UFileInPandas('university_of_antioquia.json')
         self.__journals = self.__pandasManager.getJournalList()
         # End of pandas helper
-        with open("university_of_antioquia.json", encoding="utf-8") as dataUdeA:
-            self.articles = json.loads(dataUdeA.read())
+        #with open("university_of_antioquia.json", encoding="utf-8") as dataUdeA:
+         #   self.articles = json.loads(dataUdeA.read())
         self.__list_Journal = []
 
     def getJournals(self):
@@ -69,14 +69,17 @@ class Controller:
             nombre = input()
             if nombre == '*':
                 break
+
             self.__list_Journal.clear()
-            self.search_name(nombre) #play metod search_name
+            for revista in self.__journals:
+                if str(revista.getTitle()).find(str(nombre)) != -1:
+                    self.__list_Journal.append(revista)
             i = 0
-            for revista in self.getJournals():
+            for revista in self.__list_Journal:
                 i = i + 1
-                print(i, revista.title)
+                print(i, revista.getTitle())
             if i == 0:
-                print('No se encontró ninguna revista con el nombre "', nombre,'" intete de nuevo')
+                print('No se encontró ninguna revista con el nombre "', nombre, '" intente de nuevo')
                 True
             else:
                 print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
@@ -86,9 +89,7 @@ class Controller:
                     break
                 self.printInfo(buscar)
 
-
             break
-
 
     def byISSN(self):
         while True:
@@ -117,20 +118,23 @@ class Controller:
 
     def printInfo(self, index):
         d = False
+
         try:
             i = 0
-            for Journal in self.getJournals():
-                i += 1
+            for Journal in self.__list_Journal:
+                i = i + 1
                 if i == int(index):
-                    print('Nombre de la revista: '+Journal.title)
-                    print('ISSNs: '+Journal.ISSNs)
+                    print('Nombre de la revista: ' + Journal.getTitle())
+                    print('Editorial: ' + str(Journal.getPublisher()))
+                    print('País: ' + str(Journal.getCountry()))
+                    print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
+                    for issn in Journal.getISSNs():
+                        print(issn['value'])
                     print("Articulos: ")
-                    for article in Journal.articles:
+                    for article in Journal.getArticles():
                         print("___---___---___---___---______---___---___---___---______---___---___---___")
-                        print(article.title)
+                        print(article.getTitle())
                     d = True
-
-
         except:
             print("error, solo se admiten numeros en el rango valido")
         else:
