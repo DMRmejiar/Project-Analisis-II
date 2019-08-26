@@ -5,15 +5,6 @@ from pandasHelper import UFileInPandas
 import json
 import pandas as pd
 
-
-def create_article(article):
-    article_object = models.Article(article.get('Lens ID'),
-                                    article.get('Title'),
-                                    article.get('Journal'),
-                                    article.get('Authors'))
-    return article_object
-
-
 class Controller:
 
     def __init__(self):
