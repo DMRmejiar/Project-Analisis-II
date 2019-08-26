@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Idea exeptions
+.idea/
+
+# Large Files
+university_of_antioquia.json
+
 # C extensions
 *.so
 
