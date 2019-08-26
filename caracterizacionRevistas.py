@@ -126,7 +126,10 @@ class Controller:
                 if i == int(index):
                     print('Nombre de la revista: ' + Journal.getTitle())
                     print('Editorial: ' + str(Journal.getPublisher()))
-                    print('País: ' + str(Journal.getCountry()))
+                    if str(Journal.getCountry()) == None:
+                        print('País: Desconocido')
+                    else:
+                        print('País: ' + str(Journal.getCountry()))
                     print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
                     for issn in Journal.getISSNs():
                         print(issn['value'])
