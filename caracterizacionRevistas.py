@@ -132,7 +132,7 @@ class Controller:
                         print(issn['value'])
                     print("Articulos: ")
                     for article in Journal.getArticles():
-                        print("___---___---___---___---______---___---___---___---______---___---___---___")
+                        print("__________________________________________________________________")
                         print(article.getTitle())
                     d = True
         except:
