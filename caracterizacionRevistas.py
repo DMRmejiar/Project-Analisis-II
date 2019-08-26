@@ -32,12 +32,12 @@ class Controller:
     def add_Journal(self, article):
         article_object = create_article(article)
         list_articles = [article_object]
-        Journal_object = models.Journal(article.get('Source Title'), article.get('ISSNs'), list_articles)
-        position = self.count(Journal_object)
+        journal_object = models.Journal(article.get('Source Title'), article.get('ISSNs'), list_articles)
+        position = self.count(journal_object)
         if position != -1:
             self.__list_Journal[position].articles.append(article_object)
         else:
-            self.__list_Journal.append(Journal_object)
+            self.__list_Journal.append(journal_object)
 
     def count(self, Journal):
         for Journals in self.__list_Journal:
@@ -94,17 +94,17 @@ class Controller:
     def byISSN(self):
         while True:
             print("Ingrese el ISSN de la revista o '*' para regresar:")
-            ISSN = input()
-            if ISSN == '*':
+            temp_ISSN = input()
+            if temp_ISSN == '*':
                 break
-            self.__list_Journal.clear()
-            self.search_issn(ISSN)
+            # self.__list_Journal.clear()
+            self.updateJournalListISSN(temp_ISSN)
             i = 0
-            for revista in self.getJournals():
+            for revista in self.__list_Journal:
                 i = i + 1
-                print(i, revista.title)
+                print(i, revista.getTitle())
             if i == 0:
-                print('No se encontró ninguna revista con el Issn "', ISSN, '" intente de nuevo')
+                print('No se encontró ninguna revista con el Issn "', temp_ISSN, '" intente de nuevo')
                 True
             else:
                 print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
@@ -145,9 +145,9 @@ class Controller:
         # Luego se llama a search_name o search_issn dependiendo del resultado
         pass
 
-class pandasManager:
-    """docstring for pandasManager."""
-
-    def __init__(self, json_source):
-        self.__json_source = json_source
-        self.__file = pd.read_json(json_source)
+    def updateJournalListISSN(self, issn):
+        self.__list_Journal = []
+        for journal in self.__journals:
+            for temp_issn in journal.getISSNs():
+                if issn in temp_issn['value']:
+                    self.__list_Journal.append(journal)
