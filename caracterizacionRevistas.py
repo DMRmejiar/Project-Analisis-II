@@ -1,8 +1,7 @@
 #by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
 #!/usr/bin/python
-import models
+from models import *
 from pandasHelper import UFileInPandas
-# from models import *
 import json
 import pandas as pd
 
@@ -21,9 +20,6 @@ class Controller:
         # Here the pandas helper
         self.__pandasManager = UFileInPandas('university_of_antioquia.json')
         self.__journals = self.__pandasManager.getJournalList()
-        # End of pandas helper
-        #with open("university_of_antioquia.json", encoding="utf-8") as dataUdeA:
-         #   self.articles = json.loads(dataUdeA.read())
         self.__list_Journal = []
 
     def getJournals(self):
@@ -97,7 +93,6 @@ class Controller:
             temp_ISSN = input()
             if temp_ISSN == '*':
                 break
-            # self.__list_Journal.clear()
             self.updateJournalListISSN(temp_ISSN)
             i = 0
             for revista in self.__list_Journal:
@@ -140,11 +135,6 @@ class Controller:
         else:
             if not d:
                 print("subindice fuera de rango")
-    def search(self):
-        # Aqui se filtra el tipo de busqueda a realizar, se detecta si es por issn o por nombre de revista
-        # Luego se llama a search_name o search_issn dependiendo del resultado
-        pass
-
     def updateJournalListISSN(self, issn):
         self.__list_Journal = []
         for journal in self.__journals:
