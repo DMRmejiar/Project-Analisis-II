@@ -5,15 +5,6 @@ from pandasHelper import UFileInPandas
 import json
 import pandas as pd
 
-
-def create_article(article):
-    article_object = models.Article(article.get('Lens ID'),
-                                    article.get('Title'),
-                                    article.get('Journal'),
-                                    article.get('Authors'))
-    return article_object
-
-
 class Controller:
 
     def __init__(self):
@@ -108,20 +99,26 @@ class Controller:
                         print('País: Desconocido')
                     else:
                         print('País: ' + str(Journal.getCountry()))
-                    print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
-                    for issn in Journal.getISSNs():
-                        print(issn['value'])
+                    if len(Journal.getISSNs()) > 0:
+                        print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
+                        for issn in Journal.getISSNs():
+                            print("  " + issn['value'] + " - " + issn['type'])
                     print("Articulos: ")
                     for article in Journal.getArticles():
-                        print("__________________________________________________________________________________________")
+                        print()
+                        print("______________________________________________________________________________________")
+                        print()
                         print(article.getTitle())
-                        print("__________________________________________________________________________________________")
+                        print()
+                        print("______________________________________________________________________________________")
+                        print()
                     d = True
         except:
             print("error, solo se admiten numeros en el rango valido")
         else:
             if not d:
                 print("subindice fuera de rango")
+
     def updateJournalListISSN(self, issn):
         self.__list_Journal = []
         for journal in self.__journals:
