@@ -121,14 +121,18 @@ class Controller:
                 if i == int(index):
                     print('Nombre de la revista: ' + Journal.getTitle())
                     print('Editorial: ' + str(Journal.getPublisher()))
-                    print('País: ' + str(Journal.getCountry()))
+                    if str(Journal.getCountry()) == "None":
+                        print('País: Desconocido')
+                    else:
+                        print('País: ' + str(Journal.getCountry()))
                     print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
                     for issn in Journal.getISSNs():
                         print(issn['value'])
                     print("Articulos: ")
                     for article in Journal.getArticles():
-                        print("__________________________________________________________________")
+                        print("__________________________________________________________________________________________")
                         print(article.getTitle())
+                        print("__________________________________________________________________________________________")
                     d = True
         except:
             print("error, solo se admiten numeros en el rango valido")
