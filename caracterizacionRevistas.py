@@ -25,40 +25,6 @@ class Controller:
     def getJournals(self):
         return self.__list_Journal
 
-    def add_Journal(self, article):
-        article_object = create_article(article)
-        list_articles = [article_object]
-        journal_object = models.Journal(article.get('Source Title'), article.get('ISSNs'), list_articles)
-        position = self.count(journal_object)
-        if position != -1:
-            self.__list_Journal[position].articles.append(article_object)
-        else:
-            self.__list_Journal.append(journal_object)
-
-    def count(self, Journal):
-        for Journals in self.__list_Journal:
-            if Journal.title in Journals.title:
-                return self.__list_Journal.index(Journals)
-
-        return -1
-
-    def search_name(self, value):
-        i = 0
-        value = value.lower()
-        for article in self.articles:
-            if value in str(article.get('Source Title')).lower():
-                i = i + 1
-                self.add_Journal(article)
-
-    def search_issn(self,issn):
-
-        for article in self.articles:
-            articleIssn = article.get("ISSNs")
-            listissns = articleIssn.split("; ")
-            for issns in listissns:
-                if issn in issns:
-                    self.add_Journal(article)
-
     def byname(self):
         while True:
             print("Ingrese el nombre de la revista o '*' para regresar:")
@@ -127,18 +93,19 @@ class Controller:
                         print('País: ' + str(Journal.getCountry()))
                     print("Para la revista " + Journal.getTitle() + " estos son los ISSNs: ")
                     for issn in Journal.getISSNs():
-                        print(issn['value'])
+                        print("  " + issn['value'] + " - " + issn['type'])
                     print("Articulos: ")
                     for article in Journal.getArticles():
-                        print("__________________________________________________________________________________________")
+                        print("______________________________________________________________________________________")
                         print(article.getTitle())
-                        print("__________________________________________________________________________________________")
+                        print("______________________________________________________________________________________")
                     d = True
         except:
             print("error, solo se admiten numeros en el rango valido")
         else:
             if not d:
                 print("subindice fuera de rango")
+
     def updateJournalListISSN(self, issn):
         self.__list_Journal = []
         for journal in self.__journals:
