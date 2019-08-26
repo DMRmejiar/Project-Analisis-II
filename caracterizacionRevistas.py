@@ -59,57 +59,40 @@ class Controller:
                 if issn in issns:
                     self.add_Journal(article)
 
-    def byname(self):
-        while True:
-            print("Ingrese el nombre de la revista o '*' para regresar:")
-            nombre = input()
-            if nombre == '*':
-                break
+    def byName(self,name):
+        if name == '*':
+            return " "
+        self.__list_Journal.clear()
+        for revista in self.__journals:
+            if not str(revista.getTitle()).find(str(name)) == -1:
+                self.__list_Journal.append(revista)
+        i = 0
+        for revista in self.__list_Journal:
+            i = i + 1
+            print(i, revista.getTitle())
+        if i == 0:
+            ret = 'No se encontró ninguna revista con el nombre "'+ nombre + '" intente de nuevo'
+            True
+        else:
+            ret = "Para conocer la informacion de alguna de las revistas anteriores ingrese el numero que le corresponde o '*' para regresar"
+        return ret
 
-            self.__list_Journal.clear()
-            for revista in self.__journals:
-                if str(revista.getTitle()).find(str(nombre)) != -1:
-                    self.__list_Journal.append(revista)
-            i = 0
-            for revista in self.__list_Journal:
-                i = i + 1
-                print(i, revista.getTitle())
-            if i == 0:
-                print('No se encontró ninguna revista con el nombre "', nombre, '" intente de nuevo')
-                True
-            else:
-                print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
-                      "numero que le corresponde o '*' para regresar")
-                buscar = input()
-                if buscar == '*':
-                    break
-                self.printInfo(buscar)
 
-            break
 
-    def byISSN(self):
-        while True:
-            print("Ingrese el ISSN de la revista o '*' para regresar:")
-            temp_ISSN = input()
-            if temp_ISSN == '*':
-                break
-            self.updateJournalListISSN(temp_ISSN)
-            i = 0
-            for revista in self.__list_Journal:
-                i = i + 1
-                print(i, revista.getTitle())
-            if i == 0:
-                print('No se encontró ninguna revista con el Issn "', temp_ISSN, '" intente de nuevo')
-                True
-            else:
-                print("Para conocer la informacion de alguna de las revistas anteriores ingrese el "
-                      "numero que le corresponde o '*' para regresar")
-                buscar = input()
-                if buscar == '*':
-                    break
-
-                self.printInfo(buscar)
-            break
+    def byISSN(self, temp_ISSN):
+        if temp_ISSN == '*':
+            return " "
+        self.updateJournalListISSN(temp_ISSN)
+        i = 0
+        for revista in self.__list_Journal:
+            i = i + 1
+            print(i, revista.getTitle())
+        if i == 0:
+            ret = 'No se encontró ninguna revista con el Issn "'+ temp_ISSN + '" intente de nuevo'
+            True
+        else:
+            ret = "Para conocer la informacion de alguna de las revistas anteriores ingrese el numero que le corresponde o '*' para regresar"
+        return ret
 
     def printInfo(self, index):
         d = False
