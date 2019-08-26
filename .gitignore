@@ -7,7 +7,7 @@ __pycache__/
 .idea/
 
 # Large Files
-university_of_antioquia.json
+# university_of_antioquia.json
 
 # C extensions
 *.so
