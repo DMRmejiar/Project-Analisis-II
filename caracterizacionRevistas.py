@@ -12,50 +12,14 @@ class Controller:
         self.__pandasManager = UFileInPandas('university_of_antioquia.json')
         self.__journals = self.__pandasManager.getJournalList()
         self.__list_Journal = []
-
-    def getJournals(self):
-        return self.__list_Journal
-
-    def add_Journal(self, article):
-        article_object = create_article(article)
-        list_articles = [article_object]
-        journal_object = models.Journal(article.get('Source Title'), article.get('ISSNs'), list_articles)
-        position = self.count(journal_object)
-        if position != -1:
-            self.__list_Journal[position].articles.append(article_object)
-        else:
-            self.__list_Journal.append(journal_object)
-
-    def count(self, Journal):
-        for Journals in self.__list_Journal:
-            if Journal.title in Journals.title:
-                return self.__list_Journal.index(Journals)
-
-        return -1
-
-    def search_name(self, value):
-        i = 0
-        value = value.lower()
-        for article in self.articles:
-            if value in str(article.get('Source Title')).lower():
-                i = i + 1
-                self.add_Journal(article)
-
-    def search_issn(self,issn):
-
-        for article in self.articles:
-            articleIssn = article.get("ISSNs")
-            listissns = articleIssn.split("; ")
-            for issns in listissns:
-                if issn in issns:
-                    self.add_Journal(article)
+        
 
     def byName(self,name):
         if name == '*':
             return " "
         self.__list_Journal.clear()
         for revista in self.__journals:
-            if not str(revista.getTitle()).find(str(name)) == -1:
+            if not str(revista.getTitle()).lower().find(str(name).lower()) == -1:
                 self.__list_Journal.append(revista)
         i = 0
         for revista in self.__list_Journal:
