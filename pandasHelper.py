@@ -28,7 +28,8 @@ class JournalPandasHelper:
                                 line['title_full'],
                                 line['publisher'],
                                 line['issn'],
-                                line['country'])
+                                line['country'],
+                                [])
             except Exception as e:
                 index += 1
                 continue

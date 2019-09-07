@@ -9,13 +9,6 @@ class Journal:
         self.__country = country
         self.__articles = articles
 
-    def __init__(self, title, publisher, issns, country):
-        self.__title = title
-        self.__publisher = publisher
-        self.__ISSNs = issns
-        self.__country = country
-        self.__articles = []
-
     def get_title(self):
         return self.__title
 
