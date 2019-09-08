@@ -9,12 +9,11 @@ class JournalPandasHelper:
         self.__source = source
         self.__file_university = pd.read_json(source)
 
-    def create_article(self, index):
-        article_text = self.__file_university.iloc[index]
+    @staticmethod
+    def create_article(article_text):
         temp_article = models.Article(
             article_text['record_lens_id'],
             article_text['title'],
-            article_text['journal']['title_full'],
             article_text['authors'])
         return temp_article
 
@@ -22,6 +21,7 @@ class JournalPandasHelper:
         journal_list = self.__file_university['journal']
         journal_list_to_return = []
         index = 0
+        article_text = self.__file_university.iloc[index]
         for line in journal_list:
             try:
                 temp_journal = models.Journal(
@@ -29,20 +29,21 @@ class JournalPandasHelper:
                                 line['publisher'],
                                 line['issn'],
                                 line['country'],
-                                [])
+                                {})
+                print(line['title_full'])
             except Exception as e:
                 index += 1
                 continue
+            # temp_var for control if dont append the article to an exist journal
             temp_var = False
+            temp_article = self.create_article(article_text)
             for compare_journal in journal_list_to_return:
                 if compare_journal.get_title() == temp_journal.get_title():
-                    temp_article = self.create_article(index)
-                    compare_journal.set_article(temp_article)
+                    compare_journal.set_article(str(int(article_text['volume'])), temp_article)
                     temp_var = True
                     break
             if not temp_var:
-                temp_article = self.create_article(index)
-                temp_journal.set_article(temp_article)
+                temp_journal.set_article(str(int(article_text['volume'])), temp_article)
                 journal_list_to_return.append(temp_journal)
             index += 1
         return journal_list_to_return

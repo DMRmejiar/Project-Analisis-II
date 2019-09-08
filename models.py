@@ -2,12 +2,12 @@
 #!/usr/bin/python
 
 class Journal:
-    def __init__(self, title, publisher, issns, country, articles):
+    def __init__(self, title, publisher, issns, country, volumes):
         self.__title = title
         self.__publisher = publisher
         self.__ISSNs = issns
         self.__country = country
-        self.__articles = articles
+        self.__volumes = volumes
 
     def get_title(self):
         return self.__title
@@ -21,18 +21,22 @@ class Journal:
     def get_country(self):
         return self.__country
 
-    def get_articles(self):
-        return self.__articles
+    def get_volumes(self):
+        return self.__volumes
 
-    def set_article(self, article):
-        self.__articles.append(article)
+    def get_articles(self, volume_number):
+        return self.__volumes[volume_number]
 
+    def set_article(self, volume_number, article):
+        if volume_number in self.__volumes:
+            self.__volumes[volume_number].append(article)
+        else:
+            self.__volumes[volume_number] = [article]
 
 class Article:
-    def __init__(self, lens_id, title, journal, authors):
+    def __init__(self, lens_id, title, authors):
         self.__lens_id = lens_id
         self.__title = title
-        self.__journal = journal
         self.__authors = authors
 
     def get_lens_id(self):
@@ -40,9 +44,6 @@ class Article:
 
     def get_title(self):
         return self.__title
-
-    def get_journal(self):
-        return self.__journal
 
     def get_authors(self):
         return self.__authors

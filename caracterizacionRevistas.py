@@ -42,7 +42,7 @@ class Controller:
                             " ingrese el numero que le corresponde o '*' para regresar"
         return str_to_return
 
-    def printInfo(self, index):
+    def printInfoOLD(self, index):
         str_to_return = ''
         d = False
         try:
@@ -101,4 +101,36 @@ class Controller:
             if not d:
                 # print("subindice fuera de rango")
                 str_to_return = 'subindice fuera de rango'
+        return str_to_return
+
+    def printInfo(self, index):
+        try:
+            index = int(index) - 1
+        except Exception as e:
+            return 'number'
+        try:
+            temp_journal = self.__journal_list[index]
+        except Exception as e:
+            return 'range'
+        str_to_return = 'Nombre de la revista ' + temp_journal.get_title() + '\n' + \
+            'Editorial: ' + str(temp_journal.get_publisher()) + '\n' + 'Pais: '
+        if str(temp_journal.get_country()) == 'None':
+            str_to_return += 'Desconocido'
+        else:
+            str_to_return += str(temp_journal.get_country())
+        str_to_return += '\n' + 'ISSNs asociados a la revista ' + temp_journal.get_title() + ':' + '\n'
+        if len(temp_journal.get_issn_list()) > 0:
+            for temp_issn in temp_journal.get_issn_list():
+                str_to_return += '   ' + temp_issn['value'] + ' ' + temp_issn['type'] + '\n'
+        else:
+            str_to_return += '   No se encontraron ISSNs asociados' + '\n'
+        str_to_return += 'Volumenes de la revista' + '\n'
+        if len(temp_journal.get_volumes()) > 0:
+            for temp_volume in temp_journal.get_volumes():
+                if temp_volume != 'null':
+                    str_to_return += '   ' + str(temp_volume) + '\n'
+                else:
+                    str_to_return += '   Sin volumen' + '\n'
+        else:
+            str_to_return += '   No se encontraron Volumenes asociados' + '\n'
         return str_to_return

@@ -28,4 +28,11 @@ class Main:
             if var_input == '*':
                 break
             else:
-                print(local_controller.printInfo(var_input))
+                # print(local_controller.printInfo(var_input))
+                to_print = local_controller.printInfo(var_input)
+                if to_print == 'range':
+                    print('Ingrese un valor en el rango adecuado')
+                elif to_print == 'number':
+                    print('Ingrese solo caracteres numericos')
+                else:
+                    print(to_print)
