@@ -42,67 +42,6 @@ class Controller:
                             " ingrese el numero que le corresponde o '*' para regresar"
         return str_to_return
 
-    def printInfoOLD(self, index):
-        str_to_return = ''
-        d = False
-        try:
-            i = 0
-            for journal in self.__journal_list:
-                i = i + 1
-                if i == int(index):
-                    # print('Nombre de la revista: ' + journal.get_title())
-                    str_to_return += 'Nombre de la revista' + journal.get_title()
-                    str_to_return += '\n'
-                    # print('Editorial: ' + str(journal.get_publisher()))
-                    str_to_return += 'Editorial: ' + str(journal.get_publisher())
-                    str_to_return += '\n'
-                    if str(journal.get_country()) == "None":
-                        # print('País: Desconocido')
-                        str_to_return += 'País: Desconocido'
-                        str_to_return += '\n'
-                    else:
-                        # print('País: ' + str(journal.get_country()))
-                        str_to_return += 'País: ' + str(journal.get_country())
-                        str_to_return += '\n'
-                    if len(journal.get_issn_list()) > 0:
-                        # print("Para la revista " + journal.get_title() + " estos son los ISSNs: ")
-                        str_to_return += 'Para la revista ' + journal.get_title() + ' estos son los ISSNs: '
-                        str_to_return += '\n'
-                        for issn in journal.get_issn_list():
-                            # print("  " + issn['value'] + " - " + issn['type'])
-                            # iss = {'0': "12345", '1': "Impreso"}
-                            str_to_return += '   ' + issn['value'] + ' - ' + issn['type']
-                            str_to_return += '\n'
-                    # print("Articulos: ")
-                    str_to_return += 'Articulos: '
-                    str_to_return += '\n'
-                    for article in journal.get_articles():
-                        str_to_return += '\n'
-                        for i_for in range(0, 80):
-                            str_to_return += '_'
-                        str_to_return += '\n'
-                        str_to_return += article.get_title()
-                        str_to_return += '\n'
-                        for i_for in range(0, 80):
-                            str_to_return += '_'
-                        str_to_return += '\n'
-                        # print()
-                        # print("______________________________________________________________________________________")
-                        # print()
-                        # print(article.get_title())
-                        # print()
-                        # print("______________________________________________________________________________________")
-                        # print()
-                    d = True
-        except Exception as e:
-            # print("error, solo se admiten numeros en el rango valido")
-            str_to_return = 'Lo sentimos, solo se admiten numeros en el rango valido'
-        else:
-            if not d:
-                # print("subindice fuera de rango")
-                str_to_return = 'subindice fuera de rango'
-        return str_to_return
-
     def printInfo(self, index):
         try:
             index = int(index) - 1

@@ -34,10 +34,11 @@ class Journal:
             self.__volumes[volume_number] = [article]
 
 class Article:
-    def __init__(self, lens_id, title, authors):
+    def __init__(self, lens_id, title, authors, volume):
         self.__lens_id = lens_id
         self.__title = title
         self.__authors = authors
+        self.__volume = volume
 
     def get_lens_id(self):
         return self.__lens_id
@@ -47,3 +48,6 @@ class Article:
 
     def get_authors(self):
         return self.__authors
+
+    def get_volume(self):
+        return self.__volume
