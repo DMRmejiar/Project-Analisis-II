@@ -36,11 +36,24 @@ class Main:
                 elif to_print == 'number':
                     print('Ingrese solo caracteres numericos')
                 else:
-                    print(to_print)
-                    print('ingrese el volumen: ')
+                    magazine_info = to_print
+                    volume_navigate = True
+                    while volume_navigate:
+                    print(magazine_info)
+                    print("Ingrese el volumen o presione '*' para regresar al menu: ")
                     var_input = input()
+                    if var_input == '*':
+                        break
                     to_print = local_controller.show_article_by_Volume(var_input)
                     if to_print == None:
-                        print('no hay articulos asociados a ese volumen')
+                        print('No hay articulos asociados a ese volumen')
                     else:
-                        print('los articulos asociados a este volumen son: '+ to_print)
+                        print('Los articulos asociados a este volumen son:\n' + to_print)
+                        print('Presione Y  si desea volver a la revista; de lo contrario presione N')
+                        var_input = input()
+                        if var_input == 'Y':
+                            volume_navigate = True
+                        elif var_input == 'N':
+                            volume_navigate = False
+                        else:
+                            break
