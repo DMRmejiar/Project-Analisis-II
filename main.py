@@ -26,7 +26,9 @@ class Main:
             print("Ingrese el " + var_value_print + "de la revista o '*' para regresar al menu principal:\n"
                                                     "Presione 0 para salir")
             var_value = input()
-            if var_value == '*' or var_value == '0':
+            if var_value == '*':
+                break
+            elif var_value == '0':
                 user_exit = True
                 print("Hasta luego, nos vemos pronto ")
                 break
