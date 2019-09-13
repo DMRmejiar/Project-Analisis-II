@@ -56,5 +56,3 @@ class JournalPandasHelper:
                 journal_list_to_return.append(temp_journal)
             index += 1
         return journal_list_to_return
-
-

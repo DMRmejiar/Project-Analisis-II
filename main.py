@@ -3,6 +3,7 @@
 from caracterizacionRevistas import *
 
 
+
 class Main:
     local_controller = Controller()
     print("Bienvenido, ¿Qué desea realizar?")
@@ -36,3 +37,7 @@ class Main:
                     print('Ingrese solo caracteres numericos')
                 else:
                     print(to_print)
+                print('ingrese el volumen: ')
+                var_input = input()
+                to_print = local_controller.show_article_by_Volume(var_input)
+                print('los articulos asociados a este volumen son: '+ to_print)

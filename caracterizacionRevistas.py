@@ -42,6 +42,17 @@ class Controller:
                             " ingrese el numero que le corresponde o '*' para regresar"
         return str_to_return
 
+    def show_article_by_Volume(self, var):
+        str_to_return = ' '
+        vol = str(var)
+        for temp_journal in self.__journal_list:
+            if len(temp_journal.get_volumes()) > 0:
+                for temp_volume in temp_journal.get_volumes():
+                    if temp_volume == vol:
+                        for article in temp_journal.get_articles(var):
+                            str_to_return += '   ' + article.get_title() + '\n'
+        return str_to_return
+
     def printInfo(self, index):
         try:
             index = int(index) - 1
@@ -72,4 +83,5 @@ class Controller:
                     str_to_return += '   Sin volumen' + '\n'
         else:
             str_to_return += '   No se encontraron Volumenes asociados' + '\n'
+
         return str_to_return
