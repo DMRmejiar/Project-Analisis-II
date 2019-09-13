@@ -35,7 +35,9 @@ class Main:
             print(local_controller.search(var_value, search_type))
             #print("ingrese '*' para regresar o el indice de una revista para ver su info")
             var_input = input()
-            if var_value == '*' or var_value == '0':
+            if var_input == '*':
+                break
+            if var_input == '0':
                 user_exit = True
                 print("Hasta luego, nos vemos pronto ")
                 break
