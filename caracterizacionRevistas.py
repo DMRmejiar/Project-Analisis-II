@@ -43,14 +43,18 @@ class Controller:
         return str_to_return
 
     def show_article_by_Volume(self, var):
+        i = 0
         str_to_return = ' '
         vol = str(var)
         for temp_journal in self.__journal_list:
             if len(temp_journal.get_volumes()) > 0:
                 for temp_volume in temp_journal.get_volumes():
                     if temp_volume == vol:
+                        i = 1
                         for article in temp_journal.get_articles(var):
                             str_to_return += '   ' + article.get_title() + '\n'
+        if i == 0:
+            return None
         return str_to_return
 
     def printInfo(self, index):

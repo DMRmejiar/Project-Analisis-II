@@ -37,7 +37,10 @@ class Main:
                     print('Ingrese solo caracteres numericos')
                 else:
                     print(to_print)
-                print('ingrese el volumen: ')
-                var_input = input()
-                to_print = local_controller.show_article_by_Volume(var_input)
-                print('los articulos asociados a este volumen son: '+ to_print)
+                    print('ingrese el volumen: ')
+                    var_input = input()
+                    to_print = local_controller.show_article_by_Volume(var_input)
+                    if to_print == None:
+                        print('no hay articulos asociados a ese volumen')
+                    else:
+                        print('los articulos asociados a este volumen son: '+ to_print)
