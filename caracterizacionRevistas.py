@@ -57,6 +57,28 @@ class Controller:
             return None
         return str_to_return
 
+    def show_article_info(self, volume,articl):
+        articles_counter = 0
+        str_to_return = ''
+        vol = str(volume)
+        art = str(articl)
+        for temp_journal in self.__journal_list:
+            if len(temp_journal.get_volumes()) > 0:
+                for temp_volume in temp_journal.get_volumes():
+                    if temp_volume == vol:
+                        for article in temp_journal.get_articles(vol):
+                            articles_counter += 1
+                            if str(articles_counter) == str(art):
+                                str_to_return += 'Articulo N°: ' + str(articles_counter) + '\n'
+                                str_to_return += 'Titulo del Articulo: ' + str(article.get_title()) + '\n'
+                                str_to_return += 'Autores: ' + str(article.get_authors()) + '\n'
+                                str_to_return += 'Volumen: ' + str(article.get_volume()) + '\n'
+        if articles_counter == 0:
+            return None
+        return str_to_return
+
+
+
     def printInfo(self, index):
         try:
             index = int(index) - 1

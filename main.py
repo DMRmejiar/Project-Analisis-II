@@ -46,12 +46,30 @@ class Main:
                         if to_print == None:
                             print('No hay articulos asociados a ese volumen')
                         else:
+                            present_volume = var_input
                             print('Los articulos asociados a este volumen son:\n' + to_print)
-                            print('Presione Y  si desea volver a la revista; de lo contrario presione N')
+                            print("Ingrese el numero del articulo para ver la informacion o presione '*' para continuar")
                             var_input = input()
-                            if var_input == 'Y':
-                                volume_navigate = True
-                            elif var_input == 'N':
-                                volume_navigate = False
+                            if var_input == '*':
+                                print('Presione Y  si desea volver a la revista; de lo contrario presione N')
+                                var_input = input().lower()
+                                if var_input == 'y':
+                                    volume_navigate = True
+                                elif var_input == 'n':
+                                    volume_navigate = False
+                                else:
+                                    break
+                            to_print = local_controller.show_article_info(present_volume,var_input)
+                            if to_print == None:
+                                print('No hay información acerca de ese artículo')
                             else:
-                                break
+                                to_print = local_controller.show_article_info(present_volume, var_input)
+                                print('INFORMACION DEL ARTICULO \n' + to_print)
+                                print('Presione Y  si desea volver a la revista; de lo contrario presione N')
+                                var_input = input().lower()
+                                if var_input == 'y':
+                                    volume_navigate = True
+                                elif var_input == 'n':
+                                    volume_navigate = False
+                                else:
+                                    break
