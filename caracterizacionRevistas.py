@@ -39,7 +39,8 @@ class Controller:
             str_to_return += 'No se encontró ninguna revista, intente de nuevo'
         else:
             str_to_return += "Para conocer la informacion de alguna de las revistas anteriores" + \
-                            " ingrese el numero que le corresponde o '*' para regresar"
+                            " \nIngrese el numero que le corresponde o '*' para regresar" + \
+                            "\nIngrese 0 Para salir"
         return str_to_return
 
     def show_article_by_Volume(self, var):
