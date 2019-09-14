@@ -2,8 +2,6 @@
 # !/usr/bin/python
 from caracterizacionRevistas import *
 
-
-
 class Main:
     local_controller = Controller()
     print("Bienvenido, ¿Qué desea realizar?")
@@ -39,21 +37,21 @@ class Main:
                     magazine_info = to_print
                     volume_navigate = True
                     while volume_navigate:
-                    print(magazine_info)
-                    print("Ingrese el volumen o presione '*' para regresar al menu: ")
-                    var_input = input()
-                    if var_input == '*':
-                        break
-                    to_print = local_controller.show_article_by_Volume(var_input)
-                    if to_print == None:
-                        print('No hay articulos asociados a ese volumen')
-                    else:
-                        print('Los articulos asociados a este volumen son:\n' + to_print)
-                        print('Presione Y  si desea volver a la revista; de lo contrario presione N')
+                        print(magazine_info)
+                        print("Ingrese el volumen o presione '*' para regresar al menu: ")
                         var_input = input()
-                        if var_input == 'Y':
-                            volume_navigate = True
-                        elif var_input == 'N':
-                            volume_navigate = False
-                        else:
+                        if var_input == '*':
                             break
+                        to_print = local_controller.show_article_by_Volume(var_input)
+                        if to_print == None:
+                            print('No hay articulos asociados a ese volumen')
+                        else:
+                            print('Los articulos asociados a este volumen son:\n' + to_print)
+                            print('Presione Y  si desea volver a la revista; de lo contrario presione N')
+                            var_input = input()
+                            if var_input == 'Y':
+                                volume_navigate = True
+                            elif var_input == 'N':
+                                volume_navigate = False
+                            else:
+                                break

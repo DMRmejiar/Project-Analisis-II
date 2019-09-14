@@ -43,17 +43,17 @@ class Controller:
         return str_to_return
 
     def show_article_by_Volume(self, var):
-        i = 0
-        str_to_return = ' '
+        articles_counter = 0
+        str_to_return = ''
         vol = str(var)
         for temp_journal in self.__journal_list:
             if len(temp_journal.get_volumes()) > 0:
                 for temp_volume in temp_journal.get_volumes():
                     if temp_volume == vol:
-                        i = 1
                         for article in temp_journal.get_articles(var):
-                            str_to_return += '   ' + article.get_title() + '\n'
-        if i == 0:
+                            articles_counter += 1
+                            str_to_return += str(articles_counter) + ' ' + article.get_title() + '\n'
+        if articles_counter == 0:
             return None
         return str_to_return
 
@@ -78,14 +78,14 @@ class Controller:
                 str_to_return += '   ' + temp_issn['value'] + ' ' + temp_issn['type'] + '\n'
         else:
             str_to_return += '   No se encontraron ISSNs asociados' + '\n'
+
         str_to_return += 'Volumenes de la revista' + '\n'
         if len(temp_journal.get_volumes()) > 0:
             for temp_volume in temp_journal.get_volumes():
-                if temp_volume != 'null':
-                    str_to_return += '   ' + str(temp_volume) + '\n'
+                if temp_volume != 'null' and temp_volume != '-1':
+                    str_to_return += str(temp_volume) + '\n'
                 else:
-                    str_to_return += '   Sin volumen' + '\n'
+                    str_to_return += 'Revista sin volumenes disponibles' + '\n'
         else:
-            str_to_return += '   No se encontraron Volumenes asociados' + '\n'
-
+            str_to_return += 'No se encontraron Volumenes asociados a la revista' + '\n'
         return str_to_return
