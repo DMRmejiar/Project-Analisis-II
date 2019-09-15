@@ -42,7 +42,7 @@ class Controller:
         else:
             str_to_return += "Para conocer la informacion de alguna de las revistas anteriores" + \
                             " \nIngrese el numero que le corresponde o '*' para regresar" + \
-                            "\nIngrese 0 Para salir"
+                            "\nIngrese % Para salir"
         return [str_to_return,code]
 
     def show_article_by_Volume(self, var):
@@ -65,6 +65,7 @@ class Controller:
         str_to_return = ''
         vol = str(volume)
         art = str(articl)
+        code=1
         for temp_journal in self.__journal_list:
             if len(temp_journal.get_volumes()) > 0:
                 for temp_volume in temp_journal.get_volumes():
@@ -77,8 +78,8 @@ class Controller:
                                 str_to_return += 'Autores: ' + str(article.get_authors()) + '\n'
                                 str_to_return += 'Volumen: ' + str(article.get_volume()) + '\n'
         if articles_counter == 0:
-            return None
-        return str_to_return
+            code =-1
+        return [str_to_return,code]
 
 
 
