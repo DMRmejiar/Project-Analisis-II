@@ -7,11 +7,11 @@ class Main:
     print("Bienvenido, ¿Qué desea realizar?")
     user_exit = False
     while True and (not user_exit):
-        print("Opciones\n0.- Salir\n1.- Buscar revistas por nombre \n2.- Buscar resvistas por ISSN")
+        print("Opciones\n%.- Salir\n1.- Buscar revistas por nombre \n2.- Buscar resvistas por ISSN")
         var_select = input()
         search_type = ''
         var_value_print = ''
-        if var_select == '0':
+        if var_select == '%':
             break
         if var_select == '1':
             search_type = 'name'
@@ -22,9 +22,9 @@ class Main:
         else:
             continue
         while True and (not user_exit):
-            print("Ingrese el " + var_value_print + " de la revista.\nIngrese '*' para regresar\nIngrese '0' para salir:")
+            print("Ingrese el " + var_value_print + " de la revista.\nIngrese '*' para regresar\nIngrese '%' para salir:")
             var_value = input()
-            if var_value == '0':
+            if var_value == '%':
                 user_exit = True
                 break
             if var_value == '*':
@@ -35,7 +35,7 @@ class Main:
                 continue
             # print("ingrese '*' para regresar o el indice de una revista para ver su info")
             var_input = input()
-            if var_input == '0':
+            if var_input == '%':
                 user_exit = True
                 break
             if var_input == '*':
@@ -52,9 +52,9 @@ class Main:
                     volume_navigate = True
                     while volume_navigate and (not user_exit):
                         print(magazine_info)
-                        print("Ingrese el volumen o presione '*' para regresar al menu\nIngrese 0 para salir: ")
+                        print("Ingrese el volumen o presione '*' para regresar al menu\nIngrese % para salir: ")
                         var_input = input()
-                        if var_input == '0':
+                        if var_input == '%':
                             user_exit = True
                             break
                         if var_input == '*':
@@ -65,9 +65,9 @@ class Main:
                         else:
                             present_volume = var_input
                             print('Los articulos asociados a este volumen son:\n' + to_print)
-                            print("Ingrese el numero del articulo para ver la informacion o presione '*' para continuar\nPresione 0 para salir:")
+                            print("Ingrese el numero del articulo para ver la informacion o presione '*' para continuar\nPresione % para salir:")
                             var_input = input()
-                            if var_input == '0':
+                            if var_input == '%':
                                 user_exit = True
                                 break
                             if var_input == '*':
@@ -85,9 +85,9 @@ class Main:
                             else:
                                 to_print = local_controller.show_article_info(present_volume, var_input)
                                 print('INFORMACION DEL ARTICULO \n' + to_print)
-                                print('Presione Y  si desea volver a la revista; de lo contrario presione N\nPresione 0 para salir')
+                                print('Presione Y  si desea volver a la revista; de lo contrario presione N\nPresione % para salir')
                                 var_input = str(input()).lower()
-                                if var_input == '0':
+                                if var_input == '%':
                                     user_exit = True
                                     break
                                 if var_input == 'y':
