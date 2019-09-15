@@ -19,6 +19,8 @@ class Main:
         elif var_select == '2':
             search_type = 'issn'
             var_value_print = 'ISSN'
+        else:
+            continue
         while True and (not user_exit):
             print("Ingrese el " + var_value_print + " de la revista.\nIngrese '*' para regresar\nIngrese '0' para salir:")
             var_value = input()
@@ -27,7 +29,10 @@ class Main:
                 break
             if var_value == '*':
                 break
-            print(local_controller.search(var_value, search_type))
+            usr_message = local_controller.search(var_value, search_type)
+            print(usr_message[0])
+            if usr_message[1]==-1:
+                continue
             # print("ingrese '*' para regresar o el indice de una revista para ver su info")
             var_input = input()
             if var_input == '0':

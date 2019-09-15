@@ -32,16 +32,18 @@ class Controller:
     def print_journal_list(self):
         journal_counter = 0
         str_to_return = ''
+        code=1
         for var_journal in self.__journal_list:
             journal_counter += 1
             str_to_return += str(journal_counter) + ' ' + str(var_journal.get_title()) + '\n'
         if journal_counter == 0:
             str_to_return += 'No se encontró ninguna revista, intente de nuevo'
+            code =-1
         else:
             str_to_return += "Para conocer la informacion de alguna de las revistas anteriores" + \
                             " \nIngrese el numero que le corresponde o '*' para regresar" + \
                             "\nIngrese 0 Para salir"
-        return str_to_return
+        return [str_to_return,code]
 
     def show_article_by_Volume(self, var):
         articles_counter = 0
