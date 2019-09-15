@@ -6,8 +6,9 @@ class Main:
     local_controller = Controller()
     print("Bienvenido, ¿Qué desea realizar?")
     user_exit = False
+    #Control del menú
     while True and (not user_exit):
-        print("Opciones\n%.- Salir\n1.- Buscar revistas por nombre \n2.- Buscar resvistas por ISSN")
+        print("OPCIONES\n%.- Salir\n1.- Buscar revistas por nombre \n2.- Buscar resvistas por ISSN")
         var_select = input()
         search_type = ''
         var_value_print = ''
@@ -22,7 +23,8 @@ class Main:
         else:
             continue
         while True and (not user_exit):
-            print("Ingrese el " + var_value_print + " de la revista.\nIngrese '*' para regresar\nIngrese '%' para salir:")
+            print("Ingrese el " + var_value_print + " de la revista.\nIngrese '*' para regresar"
+                                                    "\nIngrese '%' para salir:")
             var_value = input()
             if var_value == '%':
                 user_exit = True
@@ -31,11 +33,13 @@ class Main:
                 break
             while not user_exit:
                 usr_message = local_controller.search(var_value, search_type)
+                # Mostrar listado de revistas
+                print("REVISTAS \n")
                 print(usr_message[0])
                 if usr_message[1]==-1 and search_type=="issn":
                     break
                 if usr_message[1]==-1 and search_type=="name":
-                    continue
+                    break
                 # print("ingrese '*' para regresar o el indice de una revista para ver su info")
                 var_input = input()
                 if var_input == '%':
@@ -44,7 +48,7 @@ class Main:
                 if var_input == '*':
                     break
                 else:
-                    # print(local_controller.printInfo(var_input))
+                    # Mostrar informacion de la revista
                     brt_to_print = local_controller.printInfo(var_input)
                     if brt_to_print == 'range':
                         print('Ingrese un valor en el rango adecuado')
@@ -62,14 +66,17 @@ class Main:
                                 break
                             if var_input1 == '*':
                                 break
+                            # Mostrar articulos de la revista
+                            print("ARTICULOS")
                             crt_to_print = local_controller.show_article_by_Volume(var_input1)
-                            if crt_to_print == None:
+                            if crt_to_print is None:
                                 print('No hay articulos asociados a ese volumen')
                             else:
                                 while volume_navigate and (not user_exit):
                                     present_volume = var_input1
                                     print('Los articulos asociados a este volumen son:\n' + crt_to_print)
-                                    print("Ingrese el numero del articulo para ver la informacion o presione '*' para continuar\nPresione % para salir:")
+                                    print("Ingrese el numero del articulo para ver la informacion"
+                                          " o presione '*' para regresar" "\nPresione % para salir:")
                                     var_input2 = input()
                                     if var_input2 == '%':
                                         user_exit = True
@@ -85,7 +92,8 @@ class Main:
                                             if len(art_to_print[0])==0:
                                                 break
                                             print('INFORMACION DEL ARTICULO \n' + art_to_print[0])
-                                            print(" presione la tecla 'enter' para regresar al menu\nIngrese % para salir")
+                                            print("Presione la tecla 'Enter' para regresar al menú"
+                                                  "\n Ingrese % para salir")
                                             var_input3 = str(input()).lower()
                                             if var_input3 == '%':
                                                 user_exit = True

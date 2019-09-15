@@ -1,5 +1,5 @@
-#by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
-#!/usr/bin/python
+# by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
+# !/usr/bin/python
 
 class Journal:
     def __init__(self, title, publisher, issns, country, volumes):
@@ -33,6 +33,7 @@ class Journal:
         else:
             self.__volumes[volume_number] = [article]
 
+
 class Article:
     def __init__(self, lens_id, title, authors, volume):
         self.__lens_id = lens_id
@@ -51,3 +52,4 @@ class Article:
 
     def get_volume(self):
         return self.__volume
+
