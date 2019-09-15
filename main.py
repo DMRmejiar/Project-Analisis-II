@@ -45,13 +45,13 @@ class Main:
                     break
                 else:
                     # print(local_controller.printInfo(var_input))
-                    to_print = local_controller.printInfo(var_input)
-                    if to_print == 'range':
+                    brt_to_print = local_controller.printInfo(var_input)
+                    if brt_to_print == 'range':
                         print('Ingrese un valor en el rango adecuado')
-                    elif to_print == 'number':
+                    elif brt_to_print == 'number':
                         print('Ingrese solo caracteres numericos')
                     else:
-                        magazine_info = to_print
+                        magazine_info = brt_to_print
                         volume_navigate = True
                         while volume_navigate and (not user_exit):
                             print(magazine_info)
@@ -62,13 +62,13 @@ class Main:
                                 break
                             if var_input1 == '*':
                                 break
-                            to_print = local_controller.show_article_by_Volume(var_input1)
-                            if to_print == None:
+                            crt_to_print = local_controller.show_article_by_Volume(var_input1)
+                            if crt_to_print == None:
                                 print('No hay articulos asociados a ese volumen')
                             else:
                                 while volume_navigate and (not user_exit):
                                     present_volume = var_input1
-                                    print('Los articulos asociados a este volumen son:\n' + to_print)
+                                    print('Los articulos asociados a este volumen son:\n' + crt_to_print)
                                     print("Ingrese el numero del articulo para ver la informacion o presione '*' para continuar\nPresione % para salir:")
                                     var_input2 = input()
                                     if var_input2 == '%':
@@ -77,7 +77,7 @@ class Main:
                                     if var_input2 == '*':
                                         break
                                     art_to_print = local_controller.show_article_info(present_volume,var_input2)
-                                    if to_print == None:
+                                    if art_to_print == None:
                                         print('No hay información acerca de ese artículo')
                                     else:
                                         while not(user_exit) and volume_navigate:

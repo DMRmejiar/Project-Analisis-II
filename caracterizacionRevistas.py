@@ -25,8 +25,7 @@ class Controller:
                     self.__journal_list.append(var_journal)
         elif search_type == 'issn':
             for var_journal in self.__journals:
-                for var_issn in var_journal.get_issn_list():
-                    if var in var_issn['value']:
+                if not str(var_journal.get_issn_list()).lower().find(str(var))==-1:
                         self.__journal_list.append(var_journal)
 
     def print_journal_list(self):
