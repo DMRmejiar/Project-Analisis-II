@@ -45,7 +45,7 @@ class JournalPandasHelper:
             # temp_var for control if dont append the article to an exist journal
             temp_var = False
             temp_article = self.create_article(article_text)
-            print(temp_article.get_volume())
+            # print(temp_article.get_volume())
             for compare_journal in journal_list_to_return:
                 if compare_journal.get_title() == temp_journal.get_title():
                     compare_journal.set_article(temp_article.get_volume(), temp_article)
@@ -56,5 +56,3 @@ class JournalPandasHelper:
                 journal_list_to_return.append(temp_journal)
             index += 1
         return journal_list_to_return
-
-
