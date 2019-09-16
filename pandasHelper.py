@@ -22,8 +22,7 @@ class JournalPandasHelper:
                 article_text['record_lens_id'],
                 article_text['title'],
                 article_text['authors'],
-                -1)
-        # print(article_text['volume'])
+                '-1')
         return temp_article
 
     def get_journal_list(self):
@@ -42,10 +41,8 @@ class JournalPandasHelper:
             except Exception as e:
                 index += 1
                 continue
-            # temp_var for control if dont append the article to an exist journal
             temp_var = False
             temp_article = self.create_article(article_text)
-            # print(temp_article.get_volume())
             for compare_journal in journal_list_to_return:
                 if compare_journal.get_title() == temp_journal.get_title():
                     compare_journal.set_article(temp_article.get_volume(), temp_article)
