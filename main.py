@@ -66,11 +66,6 @@ class Main:
                                 break
                             if var_input1 == '*':
                                 break
-                            while var_input1 is not int:
-                                print("solo puede ingresar numeros, ingrese de nuevo el volumen")
-                                var_input1 = input()
-                                if type(var_input1) == int:
-                                    break
                             # Mostrar articulos de la revista
                             print("ARTICULOS")
                             crt_to_print = local_controller.show_article_by_Volume(var_input1)

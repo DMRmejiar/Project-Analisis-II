@@ -124,3 +124,9 @@ class Controller:
         else:
             str_to_return += 'No se encontraron volumenes asociados a la revista' + '\n'
         return str_to_return
+
+    def solo_numeros(self, index):
+        try:
+            index = int(index)
+        except Exception as e:
+            return 'number'
