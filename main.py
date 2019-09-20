@@ -59,13 +59,16 @@ class Main:
                         volume_navigate = True
                         while volume_navigate and (not user_exit):
                             print(magazine_info)
-                            print("Ingrese el volumen o presione '*' para regresar al menu\nIngrese % para salir: ")
+                            print("Ingrese el volumen o presione '*' para regresar al menu\nÓ presione la letra h para ver los articulos que no tiene un volumen asociado\nIngrese % para salir: ")
+
                             var_input1 = input()
                             if var_input1 == '%':
                                 user_exit = True
                                 break
                             if var_input1 == '*':
                                 break
+                            if var_input1 == 'h' or var_input1 == 'H':
+                                var_input1 = "-1"
                             # Mostrar articulos de la revista
                             print("ARTICULOS")
                             crt_to_print = local_controller.show_article_by_Volume(var_input1)
