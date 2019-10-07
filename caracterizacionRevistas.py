@@ -1,6 +1,7 @@
 # by: David Mejía, Juan José Zapata, Felipe Correa, Andrés Quintero, Paola Posada
 # !/usr/bin/python
 from pandasHelper import JournalPandasHelper
+import json
 
 
 class Controller:
@@ -125,8 +126,5 @@ class Controller:
             str_to_return += 'No se encontraron volumenes asociados a la revista' + '\n'
         return str_to_return
 
-    def solo_numeros(self, index):
-        try:
-            index = int(index)
-        except Exception as e:
-            return 'number'
+    def test(self):
+        return json.dumps()

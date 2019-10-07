@@ -33,6 +33,7 @@ class Main:
                 break
             while not user_exit:
                 usr_message = local_controller.search(var_value, search_type)
+                local_controller.test()
                 # Mostrar listado de revistas
                 print("REVISTAS \n")
                 print(usr_message[0])
