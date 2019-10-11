@@ -33,7 +33,7 @@ class ControllerJournalCharacterization:
     def get_articles(self, volume, issue):
         articles = []
         for article in self.__article_list:
-            if str(int(article['volume'])) == str(int(volume)) and str(int(article['issue'])) == str(int(issue)):
+            if str(article['volume']) == str(volume) and str(article['issue']) == str(issue):
                 articles.append(article)
         return articles
 
