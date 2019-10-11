@@ -69,9 +69,9 @@ class JournalCharacterization:
         return self.__journal_list
 
 
-""" ZONE for TESTING and DEBUG
+""" ZONE for TESTING and DEBUG 
+print("holi")
 test = JournalCharacterization('university_of_antioquia.json')
-test.clean_articles()
 # print(test.get_articles()[0]['authors'])
 # print(test.get_journals())
 searched_list = test.filter_journals('187', 'issn')
@@ -79,4 +79,4 @@ print(searched_list)
 # print(test.get_journal_articles(searched_list[0]))
 for art in test.get_journal_articles(searched_list[0]):
     print(art['title'], art['volume'], art['issue'])
-"""
+ ZONE for TESTING and DEBUG """
